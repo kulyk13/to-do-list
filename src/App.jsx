@@ -1,22 +1,19 @@
-import "./App.css";
+import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
-import { DatePicker, Button, Space, Card} from "antd";
+import "./App.css";
+import TodoList from "./components/TodoList/TodoList";
+import AddTodo from "./components/AddTodo/AddTodo";
+import TodoProvider from "./hooks/useTodo";
 
 function App() {
   return (
-    <div className="app">
-      <Space direction="vertical">
-        <Space>
-          <DatePicker />
-          <Button type="primary">Primary button</Button>
-        </Space>
-        <Card title="Card" style={{ width: 300 }}>
-          <p>Card content</p>
-          <p>Card content</p>
-        </Card>
-      </Space>
-    </div>
+    <TodoProvider>
+      <div className="container">
+        <h1>ToDo List</h1>
+        <AddTodo />
+        <TodoList />
+      </div>
+    </TodoProvider>
   );
 }
-
 export default App;
