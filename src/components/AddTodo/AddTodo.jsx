@@ -1,11 +1,18 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Space, Select, Tag } from "antd";
 import { useTodo } from "../../hooks/useTodo";
 import React, { useRef } from "react";
 
 export default function AddTodo() {
   let initalValues = { todoTitle: "", todoText: "" };
   const formRef = useRef(null);
-  const { todosAction } = useTodo();
+  console.log(formRef);
+  const { todos, todosAction } = useTodo();
+  const options = [
+    { value: "urgently" },
+    { value: "not urgently" },
+    { value: "important" },
+    { value: "not important" },
+  ];
 
   function saveTodo(values) {
     todosAction({ type: "add", payload: values });
@@ -46,10 +53,42 @@ export default function AddTodo() {
         />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Save
-        </Button>
+        <Select
+          mode="multiple"
+          showArrow
+          tagRender={tagRender}
+          defaultValue={["urgently", "important"]}
+          style={{ width: "100%" }}
+          options={options}
+        />
+      </Form.Item>
+      <Form.Item>
+        <Space>
+          <Button type="primary" htmlType="submit">
+            Save
+          </Button>
+          {todos.length}
+        </Space>
       </Form.Item>
     </Form>
+  );
+}
+
+// { value: "not urgently" },
+// { value: "important" },
+// { value: "not important" },
+
+function tagRender(props) {
+  const { label, value, closable, onClose } = props;
+
+  return (
+    <Tag
+      color={value == "urgently" ? "red" : "gold"}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginRight: 3 }}
+    >
+      {label}
+    </Tag>
   );
 }

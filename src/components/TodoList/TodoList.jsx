@@ -1,9 +1,14 @@
 import { List, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useTodo } from "../../hooks/useTodo";
+import { useTodo, todosAction } from "../../hooks/useTodo";
 
 export default function TodoList({}) {
-  const { todos } = useTodo();
+  const { todos, todosAction } = useTodo();
+
+  function deleteTodo() {
+    todosAction({ type: "delete" });
+  }
+
   return (
     <List
       className="list"
@@ -12,7 +17,12 @@ export default function TodoList({}) {
       renderItem={(todo) => (
         <List.Item
           actions={[
-            <Button type="danger" shape="circle" icon={<DeleteOutlined />} />,
+            <Button
+              type="danger"
+              shape="circle"
+              onClick={deleteTodo}
+              icon={<DeleteOutlined />}
+            />,
           ]}
         >
           <List.Item.Meta title={todo.title} description={todo.text} />

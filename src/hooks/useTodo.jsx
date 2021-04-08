@@ -8,6 +8,9 @@ export default function TodoProvider({ children }) {
     switch (type) {
       case "add":
         return [{ title: payload.todoTitle, text: payload.todoText }, ...state];
+      case "delete":
+        state.splice(0, 1);
+        return [...state];
       default:
         throw new Error("Action type is wrong!");
     }
