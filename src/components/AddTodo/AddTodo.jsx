@@ -63,27 +63,33 @@ export default function AddTodo() {
         />
       </Form.Item>
       <Form.Item>
-        <Space>
+        <Space size={645}>
           <Button type="primary" htmlType="submit">
             Save
           </Button>
-          {todos.length}
+          <p>ToDos count: {todos.length}</p>
         </Space>
       </Form.Item>
     </Form>
   );
 }
 
-// { value: "not urgently" },
-// { value: "important" },
-// { value: "not important" },
-
 function tagRender(props) {
   const { label, value, closable, onClose } = props;
 
   return (
     <Tag
-      color={value == "urgently" ? "red" : "gold"}
+      color={
+        value === "urgently"
+          ? "red"
+          : value === "not urgently"
+          ? "cyan"
+          : value === "important"
+          ? "gold"
+          : value === "not important"
+          ? "green"
+          : ""
+      }
       closable={closable}
       onClose={onClose}
       style={{ marginRight: 3 }}

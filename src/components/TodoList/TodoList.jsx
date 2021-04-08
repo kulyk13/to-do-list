@@ -1,6 +1,6 @@
-import { List, Button } from "antd";
+import { List, Button, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useTodo, todosAction } from "../../hooks/useTodo";
+import { useTodo } from "../../hooks/useTodo";
 
 export default function TodoList({}) {
   const { todos, todosAction } = useTodo();
@@ -14,6 +14,7 @@ export default function TodoList({}) {
       className="list"
       itemLayout="horizontal"
       dataSource={todos}
+      // id={}
       renderItem={(todo) => (
         <List.Item
           actions={[
@@ -26,6 +27,13 @@ export default function TodoList({}) {
           ]}
         >
           <List.Item.Meta title={todo.title} description={todo.text} />
+          <div>
+            {/* {todos.map((tag) => {
+              <Tag key={tag.i} color={tag}>
+                {tag}
+              </Tag>;
+            })} */}
+          </div>
         </List.Item>
       )}
     />
