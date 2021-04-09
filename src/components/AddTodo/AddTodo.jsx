@@ -3,10 +3,8 @@ import { Form, Input, Button, Space, Select, Tag } from "antd";
 import { useTodo } from "../../hooks/useTodo";
 
 export default function AddTodo() {
-  let initalValues = { todoTitle: "", todoText: "" };
   const formRef = useRef(null);
-
-  const { todos, todosAction, options } = useTodo();
+  const { todosAction, todoTags } = useTodo();
   // const options = [
   //   { value: "urgently" },
   //   { value: "not urgently" },
@@ -24,7 +22,7 @@ export default function AddTodo() {
       ref={formRef}
       name="addTodo"
       onFinish={saveTodo}
-      initialValues={initalValues}
+      initialValues={{ todoTags: [] }}
     >
       <Form.Item
         name="todoTitle"
@@ -52,44 +50,28 @@ export default function AddTodo() {
           autoSize={{ minRows: 4, maxRows: 6 }}
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item name="todoTags">
         <Select
           mode="multiple"
           showArrow
-          tagRender={tagRender}
-          defaultValue={["urgently", "important"]}
-          style={{ width: "100%" }}
-          options={options}
+          tagRender={(props) => tagRender(props, todoTags)}
+          options={todoTags}
         />
       </Form.Item>
       <Form.Item>
-        <Space size={645}>
-          <Button type="primary" htmlType="submit">
-            Save
-          </Button>
-          <p>ToDos count: {todos.length}</p>
-        </Space>
+        <Button type="primary" htmlType="submit">
+          Save
+        </Button>
       </Form.Item>
     </Form>
   );
 }
 
-function tagRender(props) {
-  const { label, value, closable, onClose } = props;
-
+function tagRender({ label, value, closable, onClose }, options) {
+  const color = options.find((item) => item.value === value)?.color;
   return (
     <Tag
-      color={
-        value === "urgently"
-          ? "red"
-          : value === "not urgently"
-          ? "cyan"
-          : value === "important"
-          ? "gold"
-          : value === "not important"
-          ? "green"
-          : ""
-      }
+      color={color}
       closable={closable}
       onClose={onClose}
       style={{ marginRight: 3 }}

@@ -1,50 +1,43 @@
+import React, { useEffect } from "react";
 import { List, Button, Tag } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useTodo } from "../../hooks/useTodo";
 
-export default function TodoList({}) {
-  const { todos, todosAction, options } = useTodo();
+export default function TodoList() {
+  const { todos, todosAction, todoTags } = useTodo();
 
-  function deleteTodo() {
-    todosAction({ type: "delete" });
-  }
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
 
   return (
     <List
       className="list"
       itemLayout="horizontal"
       dataSource={todos}
-      // id={}
       renderItem={(todo) => (
         <List.Item
           actions={[
             <Button
+              shape="circle"
+              onClick={() => todosAction({ type: "edit", payload: todo.id })}
+              icon={<EditOutlined />}
+            />,
+            <Button
               type="danger"
               shape="circle"
-              onClick={deleteTodo}
+              onClick={() => todosAction({ type: "delete", payload: todo.id })}
               icon={<DeleteOutlined />}
             />,
           ]}
         >
           <List.Item.Meta title={todo.title} description={todo.text} />
           <div>
-            {options.map((tag) => {
+            {todo.tags.map((tag) => {
+              const todoTag = todoTags.find((item) => item.value === tag);
               return (
-                <Tag
-                  key={tag.i}
-                  color={
-                    tag.value === "urgently"
-                      ? "red"
-                      : tag.value === "not urgently"
-                      ? "cyan"
-                      : tag.value === "important"
-                      ? "gold"
-                      : tag.value === "not important"
-                      ? "green"
-                      : ""
-                  }
-                >
-                  {tag.value}
+                <Tag key={tag} color={todoTag.color}>
+                  {todoTag.label}
                 </Tag>
               );
             })}
