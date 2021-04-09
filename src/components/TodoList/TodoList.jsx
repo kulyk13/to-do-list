@@ -28,9 +28,11 @@ export default function TodoList({}) {
         >
           <List.Item.Meta title={todo.title} description={todo.text} />
           <div>
-            {/* {todos.map((tag) => {
+            <Tag color="red">urgently</Tag>
+            <Tag color="gold">important</Tag>
+            {/* {tags.map((tag) => {
               <Tag key={tag.i} color={tag}>
-                {tag}
+                {options.value}
               </Tag>;
             })} */}
           </div>
