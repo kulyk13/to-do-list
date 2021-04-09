@@ -1,18 +1,18 @@
+import React, { useRef } from "react";
 import { Form, Input, Button, Space, Select, Tag } from "antd";
 import { useTodo } from "../../hooks/useTodo";
-import React, { useRef } from "react";
 
 export default function AddTodo() {
   let initalValues = { todoTitle: "", todoText: "" };
   const formRef = useRef(null);
-  console.log(formRef);
-  const { todos, todosAction } = useTodo();
-  const options = [
-    { value: "urgently" },
-    { value: "not urgently" },
-    { value: "important" },
-    { value: "not important" },
-  ];
+
+  const { todos, todosAction, options } = useTodo();
+  // const options = [
+  //   { value: "urgently" },
+  //   { value: "not urgently" },
+  //   { value: "important" },
+  //   { value: "not important" },
+  // ];
 
   function saveTodo(values) {
     todosAction({ type: "add", payload: values });

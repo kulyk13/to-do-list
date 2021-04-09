@@ -3,7 +3,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useTodo } from "../../hooks/useTodo";
 
 export default function TodoList({}) {
-  const { todos, todosAction } = useTodo();
+  const { todos, todosAction, options } = useTodo();
 
   function deleteTodo() {
     todosAction({ type: "delete" });
@@ -28,13 +28,26 @@ export default function TodoList({}) {
         >
           <List.Item.Meta title={todo.title} description={todo.text} />
           <div>
-            <Tag color="red">urgently</Tag>
-            <Tag color="gold">important</Tag>
-            {/* {tags.map((tag) => {
-              <Tag key={tag.i} color={tag}>
-                {options.value}
-              </Tag>;
-            })} */}
+            {options.map((tag) => {
+              return (
+                <Tag
+                  key={tag.i}
+                  color={
+                    tag.value === "urgently"
+                      ? "red"
+                      : tag.value === "not urgently"
+                      ? "cyan"
+                      : tag.value === "important"
+                      ? "gold"
+                      : tag.value === "not important"
+                      ? "green"
+                      : ""
+                  }
+                >
+                  {tag.value}
+                </Tag>
+              );
+            })}
           </div>
         </List.Item>
       )}

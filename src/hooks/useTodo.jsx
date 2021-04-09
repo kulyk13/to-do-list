@@ -3,6 +3,13 @@ import React, { createContext, useContext, useReducer } from "react";
 const TodoContext = createContext();
 export const useTodo = () => useContext(TodoContext);
 
+const options = [
+  { value: "urgently" },
+  { value: "not urgently" },
+  { value: "important" },
+  { value: "not important" },
+];
+
 export default function TodoProvider({ children }) {
   function todoReducer(state, { type, payload }) {
     switch (type) {
@@ -18,7 +25,7 @@ export default function TodoProvider({ children }) {
   const [todos, todosAction] = useReducer(todoReducer, []);
 
   return (
-    <TodoContext.Provider value={{ todos, todosAction }}>
+    <TodoContext.Provider value={{ todos, todosAction, options }}>
       {children}
     </TodoContext.Provider>
   );
