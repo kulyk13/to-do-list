@@ -10,7 +10,7 @@ function App() {
     <TodoProvider>
       <div className="container">
         <h1>ToDo List</h1>
-        <AddTodo />
+        <AddTodo add={true} />
         <TodoList />
       </div>
     </TodoProvider>

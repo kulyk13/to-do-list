@@ -1,0 +1,9 @@
+.ant-list-item-action li:first-child > .ant-btn-icon-only {
+  background-color: #a0d911;
+}
+.anticon-check {
+  color: #fff;
+}
+.done {
+  text-decoration: line-through;
+}

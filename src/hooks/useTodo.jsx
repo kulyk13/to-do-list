@@ -41,6 +41,10 @@ export default function TodoProvider({ children }) {
       case "edit":
         console.log(payload);
         return state;
+      case "done":
+        // todo.done = !todo.done;
+
+        return state;
       default:
         throw new Error("Action type is wrong!");
     }
